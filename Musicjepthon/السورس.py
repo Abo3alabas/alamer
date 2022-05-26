@@ -108,3 +108,16 @@ async def repo(client, m: Message):
 📚 • قناة سمو الامير  : @W_N_Q_SH</b>
 """
     await m.reply(JEPM, disable_web_page_preview=True)
+
+@Client.on_message(filters.command(["الصوت"], prefixes=f"{HNDLR}"))
+)
+@authorized_users_only
+async def change_volume(client, m: Message):
+    range = m.command[1]
+    chat_id = m.chat.id
+    if chat_id in QUEUE:
+        try:
+            await call_py.change_volume_call(chat_id, volume=int(range))
+            await m.reply(
+                f"✅ تم تغيير مستوي الصوت الي `{range}`%"
+            )
